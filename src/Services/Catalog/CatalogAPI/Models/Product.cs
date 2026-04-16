@@ -7,6 +7,8 @@
         public string Description { get; set; } = default!;
         public List<string> Category { get; set; } = new List<string>(); //null ve kullanilmaya hazir bir liste 
 
+        public DateTime? CreatedAt { get; set; }
+        public DateTime? UpdatedAt { get; set; }
         public string ImageFile { get; set; } = default!;
         public decimal Price { get; set; }
     }

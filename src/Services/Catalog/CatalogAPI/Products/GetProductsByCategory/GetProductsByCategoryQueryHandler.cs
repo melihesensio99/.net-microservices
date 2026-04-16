@@ -1,4 +1,4 @@
-﻿using BuildingBlocks.CQRS;
+using BuildingBlocks.CQRS;
 using CatalogAPI.Models;
 using Marten;
 using Marten.Linq.MatchesSql;
@@ -7,7 +7,7 @@ namespace CatalogAPI.Products.GetProductByCategory
 {
     public record GetProductByCategoryQuery(string Category) : IQuery<GetProductByCategoryResult>;
     public record GetProductByCategoryResult(IEnumerable<Product> Products);
-    public class GetProductsByCategoryQueryHandler(IDocumentSession session, ILogger<GetProductsByCategoryQueryHandler> logger) : IQueryHandler<GetProductByCategoryQuery, GetProductByCategoryResult>
+    public class GetProductsByCategoryQueryHandler(IDocumentSession session) : IQueryHandler<GetProductByCategoryQuery, GetProductByCategoryResult>
     {
         public async Task<GetProductByCategoryResult> Handle(GetProductByCategoryQuery request, CancellationToken cancellationToken)
         {
@@ -18,7 +18,6 @@ namespace CatalogAPI.Products.GetProductByCategory
 
             if (products == null || !products.Any())
             {
-                logger.LogWarning("No products found for category {Category}", products);
                 return new GetProductByCategoryResult(Enumerable.Empty<Product>());
             }
             return new GetProductByCategoryResult(products);
