@@ -44,6 +44,8 @@ namespace CatalogAPI
             {
                 services.InitializeMartenWith<CatalogInitialData>();
             }
+
+            services.AddHealthChecks().AddNpgSql(configuration.GetConnectionString("Database")!);
             return services;
 
 
